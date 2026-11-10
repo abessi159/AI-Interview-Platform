@@ -1,0 +1,237 @@
+/* =========================================
+   TAILWIND
+========================================= */
+@import "tailwindcss";
+
+/* =========================================
+   DESIGN TOKENS (GLOBAL THEME)
+========================================= */
+
+:root {
+  --bg: #0d0d0d;
+  --bg-soft: #141414;
+
+  --card: rgba(255,255,255,0.03);
+  --card-hover: rgba(255,255,255,0.06);
+
+  --border: rgba(255,255,255,0.07);
+
+  --text: rgba(255,255,255,0.95);
+  --muted: rgba(255,255,255,0.5);
+  --faint: rgba(255,255,255,0.3);
+
+  --accent: #c8f135;
+
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+
+  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =========================================
+   BASE RESET
+========================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+
+  overflow-x: hidden;
+}
+
+/* =========================================
+   ANIMATED AURORA BACKGROUND (SAFE)
+   - only visual layer, no layout impact
+========================================= */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 25%, rgba(200,241,53,0.06), transparent 35%),
+    radial-gradient(circle at 85% 10%, rgba(255,255,255,0.02), transparent 40%),
+    radial-gradient(circle at 50% 90%, rgba(200,241,53,0.04), transparent 40%);
+  filter: blur(60px);
+  animation: auroraMove 18s ease-in-out infinite;
+}
+
+@keyframes auroraMove {
+  0% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+  100% { transform: translateY(0px) scale(1); }
+}
+
+/* =========================================
+   SELECTION
+========================================= */
+
+::selection {
+  background: rgba(124,140,255,0.35);
+  color: white;
+}
+
+/* =========================================
+   SCROLLBAR (clean, minimal)
+========================================= */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.12);
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.2);
+}
+
+/* =========================================
+   GLOBAL LINKS
+========================================= */
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  opacity: 0.9;
+}
+
+/* =========================================
+   GLOBAL BUTTON BEHAVIOR
+   (safe fallback for any button class)
+========================================= */
+
+button {
+  font-family: inherit;
+  transition: var(--transition);
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   CARD SYSTEM (SAFE GLOBAL UTILITY)
+========================================= */
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+
+  backdrop-filter: blur(12px);
+
+  transition: var(--transition);
+}
+
+.card:hover {
+  background: var(--card-hover);
+  border-color: rgba(124,140,255,0.18);
+  transform: translateY(-4px);
+}
+
+/* =========================================
+   GLASS EFFECT (optional reusable class)
+========================================= */
+
+.glass {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(14px);
+  border-radius: var(--radius-md);
+}
+
+/* =========================================
+   ACCENT TEXT
+========================================= */
+
+.text-accent {
+  color: var(--accent);
+}
+
+.gradient-text {
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    #cfd3ff,
+    #7c8cff
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================================
+   FOCUS STATES (important for UX)
+========================================= */
+
+:focus-visible {
+  outline: 2px solid rgba(124,140,255,0.6);
+  outline-offset: 2px;
+}
+
+/* =========================================
+   ANIMATIONS (subtle, global-safe)
+========================================= */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 0.5s ease both;
+}
+
+/* =========================================
+   TYPOGRAPHY HELPERS
+========================================= */
+
+.text-muted {
+  color: var(--muted);
+}
+
+.text-faint {
+  color: var(--faint);
+}
+
+/* =========================================
+   SAFE MOBILE TWEAKS
+========================================= */
+
+@media (max-width: 768px) {
+  body::before {
+    filter: blur(50px);
+    opacity: 0.9;
+  }
+}
